@@ -1,0 +1,99 @@
+<mujoco model="MuJoCo Model">
+  <compiler angle="radian" meshdir="C:\Users\147\Desktop\Bomin\After_Class\sim\robots\ground_truth\assets/"/>
+
+  <asset>
+    <mesh name="base_08p" file="base_08p.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_01" file="hand_part_01.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_02" file="hand_part_02.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_03" file="hand_part_03.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_04" file="hand_part_04.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_05" file="hand_part_05.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_06" file="hand_part_06.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_07" file="hand_part_07.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_08" file="hand_part_08.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_09" file="hand_part_09.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_10" file="hand_part_10.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_11" file="hand_part_11.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_12" file="hand_part_12.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_13" file="hand_part_13.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_14" file="hand_part_14.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_15" file="hand_part_15.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_16" file="hand_part_16.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_17" file="hand_part_17.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_18" file="hand_part_18.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_19" file="hand_part_19.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_20" file="hand_part_20.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_21" file="hand_part_21.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_22" file="hand_part_22.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_23" file="hand_part_23.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_24" file="hand_part_24.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_25" file="hand_part_25.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_26" file="hand_part_26.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_27" file="hand_part_27.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_28" file="hand_part_28.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_29" file="hand_part_29.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_30" file="hand_part_30.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_31" file="hand_part_31.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_32" file="hand_part_32.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_33" file="hand_part_33.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_34" file="hand_part_34.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_35" file="hand_part_35.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_36" file="hand_part_36.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_37" file="hand_part_37.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_38" file="hand_part_38.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_39" file="hand_part_39.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_40" file="hand_part_40.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_41" file="hand_part_41.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hand_part_42" file="hand_part_42.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="interface" file="interface.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="wrist_bracket" file="wrist_bracket.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom name="base_08p" pos="0.0857353 0.333909 0.0516252" quat="0.47314 0.525489 -0.521659 0.47736" type="mesh" rgba="0.3 0.6 1 1" mesh="base_08p"/>
+    <geom name="hand_part_01" pos="0.121271 0.121932 0.164378" quat="0 0.788008 0 0.615664" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_01"/>
+    <geom name="hand_part_02" pos="0.0983507 0.111637 0.171332" quat="0.186131 0.771974 0.15754 0.58702" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_02"/>
+    <geom name="hand_part_03" pos="0.0589587 0.124006 0.181263" quat="0.234842 0.777856 0.117189 0.571013" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_03"/>
+    <geom name="hand_part_04" pos="0.0901794 0.0910088 0.17248" quat="0.5572 0.5572 -0.435348 0.435348" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_04"/>
+    <geom name="hand_part_05" pos="0.0703749 0.121206 0.178391" quat="0.234843 0.777856 0.117189 0.571013" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_05"/>
+    <geom name="hand_part_06" pos="0.0940509 0.17158 0.152514" quat="0.399751 0.588062 0.573363 0.406986" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_06"/>
+    <geom name="hand_part_07" pos="0.10093 0.161129 0.14504" quat="0.379891 0.57539 0.341543 0.638715" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_07"/>
+    <geom name="hand_part_08" pos="0.0596608 0.101826 0.180185" quat="0.618311 0.48848 -0.483118 0.381675" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_08"/>
+    <geom name="hand_part_09" pos="0.109181 0.160624 0.124418" quat="0.707107 0 0 0.707107" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_09"/>
+    <geom name="hand_part_10" pos="0.115949 0.0629217 0.143689" quat="0.614694 0.779291 0.0778511 -0.0937848" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_10"/>
+    <geom name="hand_part_11" pos="0.119597 0.0793326 0.157289" quat="0.701836 0.0861768 0.0861768 0.701836" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_11"/>
+    <geom name="hand_part_12" pos="0.109082 0.0267002 0.116675" quat="0.704737 -0.0578483 0.213273 0.674177" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_12"/>
+    <geom name="hand_part_13" pos="0.107655 0.0242556 0.110891" quat="0.681712 -0.00818532 0.17842 0.709485" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_13"/>
+    <geom name="hand_part_14" pos="0.11644 0.0521249 0.143317" quat="0.414788 0.657331 -0.570018 0.266356" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_14"/>
+    <geom name="hand_part_15" pos="0.117026 0.0537157 0.145294" quat="0.425425 0.652308 -0.561993 0.278697" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_15"/>
+    <geom name="hand_part_16" pos="0.0824485 0.0690139 0.152095" quat="0.619049 0.774247 0.0372585 -0.126224" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_16"/>
+    <geom name="hand_part_17" pos="0.0877718 0.0853082 0.165277" quat="0.70184 0.0861408 0.0861408 0.70184" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_17"/>
+    <geom name="hand_part_18" pos="0.0718842 0.0330055 0.126005" quat="0.705691 -0.0447219 0.227268 0.669589" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_18"/>
+    <geom name="hand_part_19" pos="0.0702046 0.030573 0.120285" quat="0.716568 -0.00759053 0.188113 0.67163" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_19"/>
+    <geom name="hand_part_20" pos="0.0825892 0.0597897 0.153934" quat="0.447496 0.617622 -0.590623 0.263544" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_20"/>
+    <geom name="hand_part_21" pos="0.0818408 0.0582171 0.151997" quat="0.436277 0.622372 -0.59909 0.251804" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_21"/>
+    <geom name="hand_part_22" pos="0.0491435 0.0803558 0.160499" quat="0.621814 0.765259 -0.0133976 -0.165973" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_22"/>
+    <geom name="hand_part_23" pos="0.0565283 0.0962517 0.173164" quat="0.701845 0.0860985 0.0860985 0.701845" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_23"/>
+    <geom name="hand_part_24" pos="0.0340232 0.0451715 0.135552" quat="0.706615 -0.0263746 0.242793 0.664117" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_24"/>
+    <geom name="hand_part_25" pos="0.0320312 0.0427924 0.12991" quat="0.757464 -0.006407 0.199007 0.621775" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_25"/>
+    <geom name="hand_part_26" pos="0.0471732 0.0697252 0.160743" quat="0.461526 0.576247 -0.633072 0.232707" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_26"/>
+    <geom name="hand_part_27" pos="0.0481208 0.0712506 0.162629" quat="0.473394 0.571861 -0.624145 0.243549" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_27"/>
+    <geom name="hand_part_28" pos="0.111797 0.139359 0.102056" quat="0.99285 -0.108808 -0.0487886 0.00534681" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_28"/>
+    <geom name="hand_part_29" pos="0.109786 0.153153 0.118588" quat="0.5 0.5 -0.5 0.5" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_29"/>
+    <geom name="hand_part_30" pos="0.116064 0.106203 0.0630431" quat="0.395229 0.543874 -0.586617 0.451526" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_30"/>
+    <geom name="hand_part_31" pos="0.115813 0.112117 0.065578" quat="0.381268 0.595512 -0.580613 0.403594" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_31"/>
+    <geom name="hand_part_32" pos="0.112386 0.139304 0.0912579" quat="0.690583 -0.22224 0.153721 0.670876" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_32"/>
+    <geom name="hand_part_33" pos="0.112125 0.141337 0.0928654" quat="0.693256 -0.209639 0.140814 0.674995" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_33"/>
+    <geom name="hand_part_34" pos="0.127454 0.106437 0.164029" quat="0.146106 0.765208 0.188604 0.597946" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_34"/>
+    <geom name="hand_part_35" pos="0.121417 0.0850637 0.164639" quat="0.55721 0.55721 -0.435336 0.435336" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_35"/>
+    <geom name="hand_part_36" pos="0.0954831 0.124285 0.170946" quat="0.0941326 0.786109 -0.0052655 0.610855" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_36"/>
+    <geom name="hand_part_37" pos="0.112964 0.161118 0.146305" quat="0.379892 0.57539 0.341543 0.638715" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_37"/>
+    <geom name="hand_part_38" pos="0.0939176 0.127678 0.171868" quat="0.0404147 0.787228 -0.0315486 0.614527" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_38"/>
+    <geom name="hand_part_39" pos="0.0680102 0.137688 0.178415" quat="0.0918511 0.783225 -0.0716223 0.610732" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_39"/>
+    <geom name="hand_part_40" pos="0.105327 0.160298 0.161079" quat="0.525482 0.473148 0.473148 0.525482" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_40"/>
+    <geom name="hand_part_41" pos="0.0866745 0.112876 0.174254" quat="0.18613 0.771974 0.157541 0.58702" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_41"/>
+    <geom name="hand_part_42" pos="0.115713 0.106411 0.166957" quat="0.146105 0.765208 0.188604 0.597946" type="mesh" rgba="0.6 0.6 0.65 1" mesh="hand_part_42"/>
+    <geom name="interface" pos="0.0928063 0.182701 0.15202" quat="0.7071 0.00311062 -0.00311062 0.7071" type="mesh" rgba="1 0.3 0.3 1" mesh="interface"/>
+    <geom name="wrist_bracket" pos="0.0956689 0.218927 0.152549" quat="0.302333 0.63694 -0.298872 0.6431" type="mesh" rgba="0.3 0.6 1 1" mesh="wrist_bracket"/>
+  </worldbody>
+</mujoco>

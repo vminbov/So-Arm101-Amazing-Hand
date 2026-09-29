@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<mujoco model="so101_amazinghand_scene">
+  <include file="so101_amazinghand.xml"/>
+
+  <compiler angle="radian" autolimits="true" meshdir="C:/Users/147/Desktop/Bomin/After_Class/sim/robots/so101_amazinghand/assets"/>
+  <option timestep="0.002" integrator="implicitfast" cone="elliptic" impratio="10"/>
+
+  <visual>
+    <headlight diffuse="0.55 0.55 0.55" ambient="0.35 0.35 0.35" specular="0.1 0.1 0.1"/>
+    <global azimuth="150" elevation="-25" offwidth="1280" offheight="960"/>
+    <quality shadowsize="4096"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.15"/>
+    <material name="table_mat" rgba="0.75 0.6 0.42 1"/>
+    <material name="cube_mat" rgba="0.85 0.2 0.2 1"/>
+    <material name="can_mat" rgba="0.8 0.8 0.85 1"/>
+    <!-- 실물 외부 카메라 스탠드 (SO-ARM100 레포 부품, bottom+top, 독립 스탠드로 세움) -->
+    <mesh name="cam_stand_bot" file="cam_mount_bottom_v2.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="cam_stand_top" file="cam_mount_top_v2.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0.3 0 1.6" dir="0 0 -1" directional="true"/>
+    <light pos="0.6 0.5 1.2" dir="-0.4 -0.3 -1" diffuse="0.3 0.3 0.3"/>
+    <geom name="floor" type="plane" size="0 0 0.05" pos="0 0 -0.001" material="groundplane"/>
+    <!-- 책상 [실측 2026-09-29]: 로봇 베이스(pan 축, 월드 x=0.039) 기준 뒤로 65mm ~ 앞으로 467mm(세로 532),
+         왼쪽(+y) 1150mm ~ 오른쪽 350mm(가로 1500). -->
+    <body name="table" pos="0.240 0.400 -0.02">
+      <geom name="table_top" type="box" size="0.266 0.750 0.02" material="table_mat" friction="1 0.01 0.001"/>
+    </body>
+    <!-- [2026-09-15] 큐브 -> 나랑드사이다 245ml(슬림캔) 원통으로 교체. 사용자 확인:
+         슬림캔 규격(지름 약 53mm, 높이 약 115mm) — 정확한 실측치는 아니고 추정값.
+         mass=0.25kg(내용물 포함 풀캔 가정), 원통 관성 직접 계산(축=로컬 Z).
+         geom/body 이름은 하위호환 위해 "cube"/"cube_geom" 그대로 유지(코드에서 참조 다수). -->
+    <body name="cube" pos="0.22 0.00 0.0575">
+      <freejoint name="cube_free"/>
+      <inertial pos="0 0 0" mass="0.25" diaginertia="3.19e-4 3.19e-4 8.78e-5"/>
+      <geom name="cube_geom" type="cylinder" size="0.0265 0.0575" material="can_mat"
+            friction="1.0 0.03 0.002" solref="0.008 1" solimp="0.97 0.995 0.001" condim="4" priority="2"/>
+    </body>
+    <camera name="front" pos="0.60 0.00 0.30" mode="targetbody" target="cube" fovy="50"/>
+    <camera name="side"  pos="0.18 -0.55 0.32" mode="targetbody" target="cube" fovy="50"/>
+    <camera name="top"   pos="0.18 0.00 0.55" mode="targetbody" target="cube" fovy="46"/>
+
+    <!-- 실물 외부 카메라 스탠드 [실측 2026-09-29]: 스탠드 바닥 중심이 로봇 베이스(pan 축, 월드
+         (0.039,0)) 정면 450mm -> 월드 (0.489,0). body 원점은 메시 bbox 기준 (+0.0185, -0.0465) 보정.
+         폴 긴 축(메시 로컬 +y)을 world +z로 세우고, 꼭대기 절곡부가 로봇 쪽을 보도록 180° yaw 합성.
+         실물처럼 팔이 부딪힐 수 있게 충돌 켬(정적 body라 테이블과는 충돌 안 함). -->
+    <body name="cam_stand" pos="0.5075 -0.0465 0" quat="0 0 0.7071068 0.7071068">
+      <geom name="cam_stand_bot" type="mesh" mesh="cam_stand_bot" rgba="0.75 0.72 0.15 1" group="2"/>
+      <geom name="cam_stand_top" type="mesh" mesh="cam_stand_top" rgba="0.12 0.12 0.12 1" group="2"/>
+    </body>
+    <!-- 실물 외부 카메라 Innomaker U20CAM-720P [실측 2026-09-29]: 렌즈 높이 375mm, 스탠드 중심보다
+         25.5mm 로봇 쪽(STL), 로봇 쪽을 보며 아래로 64.95°. 고정 카메라(실물처럼 캔을 따라가지 않음).
+         fovy = 1280x720, 수평화각 102° -> 수직 69.6° (핀홀 — 실물 광각 왜곡은 미반영). -->
+    <camera name="ext_cam" pos="0.4635 0 0.375" quat="0.690279 0.153347 0.153347 0.690279" fovy="69.57"/>
+  </worldbody>
+
+  <keyframe>
+    <!-- [사용자 확정, 2026-09-15, 2차 수정] 1차 시도에서 actuator_gainprm(kp)만 0으로
+         만들고 actuator_biasprm은 그대로 둬서, MuJoCo position 액추에이터의 bias 항
+         (force = biasprm[0] + biasprm[1]*qpos + biasprm[2]*qvel, biasprm[1]=-kp≈-998)이
+         여전히 거의 무한강성 스프링처럼 qpos=0을 붙잡고 있었음 — 사용자가 렌더 보고
+         "중력 있으면 저렇게 못 서있지"라고 바로 지적해서 발견. gainprm과 biasprm을
+         둘 다 0으로 만들고(진짜 무동력) 40000스텝(80초) 시뮬레이션해서 재측정한 진짜
+         낙하 평형점으로 교체. 시작자세를 바꿔도 여기로 수렴하는지는 1차 시도 때만
+         확인했었고 이번 수정판으로는 재검증 안 함(같은 방법론이라 크게 다르진 않을 것).
+         이전(가짜) 값: qpos 앞 5개 = 0 0 0 0 0 -->
+    <!-- [사용자 수동 미세조정, 2026-09-15, 3차] 위 물리 시뮬레이션 결과를 사용자가
+         뷰어(--jog)에서 직접 보고 "2번(shoulder_lift) 더 내려가야, 4번(wrist_flex)
+         더 뒤로 꺾여야" 라고 지시 → 두 관절 다 range 한계까지 밀어붙여서 확정
+         (shoulder_lift=-100deg, wrist_flex=-95deg, 둘 다 정확히 관절 한계값). -->
+    <key name="home"
+         qpos="0.02618 -1.74533 1.56380 -1.65806 -0.112 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0.22 0 0.0575 1 0 0 0"
+         ctrl="0.02618 -1.74533 1.56380 -1.65806 -0.112 0 0 0 0 0 0 0 0"/>
+  </keyframe>
+</mujoco>

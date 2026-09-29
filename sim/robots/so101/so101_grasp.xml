@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<mujoco model="so101_grasp">
+  <!-- Working grasp scene for Team A (data-ratio experiment).
+       SO-101 (official TheRobotStudio MJCF, unmodified) + tabletop + one graspable
+       cube at a fixed coordinate set + validation cameras.
+       The AmazingHand is kept as a separate visual-reference model
+       (see sim/robots/amazinghand/scene_ah_only.xml); this scene uses the
+       SO-101 native parallel jaw for grasp/release physics. -->
+
+  <include file="so101_new_calib.xml"/>
+
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002" integrator="implicitfast" cone="elliptic" impratio="10"/>
+
+  <visual>
+    <headlight diffuse="0.55 0.55 0.55" ambient="0.35 0.35 0.35" specular="0.1 0.1 0.1"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="150" elevation="-25" offwidth="1280" offheight="960"/>
+    <quality shadowsize="4096"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8"
+             width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.15"/>
+    <material name="table_mat" rgba="0.75 0.6 0.42 1"/>
+    <material name="cube_mat" rgba="0.85 0.2 0.2 1"/>
+    <!-- 실물 카메라 거치대 (SO-ARM100 레포 Overhead_Cam_Mount 부품, bottom+top만 사용해
+         독립 스탠드로 세움). 단위 mm→m. -->
+    <mesh name="cam_stand_bot" file="cam_mount_bottom_v2.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="cam_stand_top" file="cam_mount_top_v2.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0.3 0 1.6" dir="0 0 -1" directional="true"/>
+    <light pos="0.6 0.5 1.2" dir="-0.4 -0.3 -1" diffuse="0.3 0.3 0.3"/>
+
+    <geom name="floor" type="plane" size="0 0 0.05" pos="0 0 -0.001" material="groundplane"/>
+
+    <!-- Table: top surface flush with z=0 (SO-101 base is bolted to the table top). -->
+    <body name="table" pos="0.20 0 -0.02">
+      <geom name="table_top" type="box" size="0.35 0.35 0.02" material="table_mat" friction="1 0.01 0.001"/>
+    </body>
+
+    <!-- Graspable object. Home coordinate = fixed reference from the A-plan spec.
+         reset() in grasp_env.py overrides qpos from a configurable coordinate set. -->
+    <body name="cube" pos="0.20 0.00 0.009">
+      <freejoint name="cube_free"/>
+      <inertial pos="0 0 0" mass="0.02" diaginertia="1.5e-6 1.5e-6 1.5e-6"/>
+      <geom name="cube_geom" type="box" size="0.009 0.009 0.009" material="cube_mat"
+            friction="1.4 0.03 0.002" solref="0.008 1" solimp="0.97 0.995 0.001"
+            condim="4" priority="1"/>
+    </body>
+
+    <!-- Validation cameras (auto-aimed at the cube) -->
+    <camera name="front" pos="0.58 0.00 0.26" mode="targetbody" target="cube" fovy="48"/>
+    <camera name="side"  pos="0.16 -0.55 0.30" mode="targetbody" target="cube" fovy="48"/>
+    <camera name="top"   pos="0.17 0.00 0.55" mode="targetbody" target="cube" fovy="46"/>
+
+    <!-- 실물 외부 카메라 스탠드: 큐브에서 ~55cm, 테이블 위. 폴 축(PCA로 확인한 메시의
+         긴 축 = 로컬 +y)을 world +z로 세우고(피치), 꼭대기의 카메라 절곡부(로컬 +x쪽으로
+         치우침)가 로봇 쪽(-x)을 보도록 180° 요(yaw)까지 합성한 쿼터니언. -->
+    <body name="cam_stand" pos="0.66 0 0" quat="0 0 0.7071068 0.7071068">
+      <geom type="mesh" mesh="cam_stand_bot" rgba="0.75 0.72 0.15 1" contype="0" conaffinity="0" group="2"/>
+      <geom type="mesh" mesh="cam_stand_top" rgba="0.12 0.12 0.12 1" contype="0" conaffinity="0" group="2"/>
+    </body>
+    <!-- 카메라는 world 최상위에 둠 (부모 회전의 roll 상속 방지). pos = stand_pos +
+         R_final·[0.025,0.365,0] (카메라 절곡부의 로컬 좌표) 직접 계산. -->
+    <camera name="ext_cam" pos="0.6157 0.0466 0.3957" mode="targetbody" target="cube" fovy="50"/>
+  </worldbody>
+
+  <!-- Named poses. 'home' is a comfortable pre-grasp posture over the table. -->
+  <keyframe>
+    <key name="home"
+         qpos="0 -1.05 1.15 0.75 0 0.2
+               0.20 0.00 0.02 1 0 0 0"
+         ctrl="0 -1.05 1.15 0.75 0 0.2"/>
+  </keyframe>
+</mujoco>
