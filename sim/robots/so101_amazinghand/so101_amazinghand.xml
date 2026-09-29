@@ -1,5 +1,5 @@
 <mujoco model="so101_new_calib">
-  <compiler angle="radian" meshdir="C:\Users\147\Desktop\Bomin\After_Class\sim\robots\so101_amazinghand\assets/"/>
+  <compiler angle="radian" meshdir="assets"/>
 
   <default>
     <default class="so101_new_calib">

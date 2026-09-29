@@ -1,5 +1,5 @@
 <mujoco model="MuJoCo Model">
-  <compiler angle="radian" meshdir="C:\Users\147\Desktop\Bomin\After_Class\sim\robots\ground_truth\assets/"/>
+  <compiler angle="radian" meshdir="assets"/>
 
   <asset>
     <mesh name="base_08p" file="base_08p.stl" scale="0.001 0.001 0.001"/>

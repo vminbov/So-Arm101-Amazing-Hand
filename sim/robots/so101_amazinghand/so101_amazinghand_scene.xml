@@ -2,7 +2,7 @@
 <mujoco model="so101_amazinghand_scene">
   <include file="so101_amazinghand.xml"/>
 
-  <compiler angle="radian" autolimits="true" meshdir="C:/Users/147/Desktop/Bomin/After_Class/sim/robots/so101_amazinghand/assets"/>
+  <compiler angle="radian" autolimits="true" meshdir="assets"/>
   <option timestep="0.002" integrator="implicitfast" cone="elliptic" impratio="10"/>
 
   <visual>

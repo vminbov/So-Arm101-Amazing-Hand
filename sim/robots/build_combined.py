@@ -225,8 +225,9 @@ def build(mount_euler=None):
     model = arm.compile()
     print(f"compiled: nq={model.nq} nv={model.nv} nu={model.nu} nbody={model.nbody} neq={model.neq}")
     hand_qpos0 = model.qpos0[5:]
+    arm.meshdir = "assets"   # 컴파일 후 상대경로로 저장 → 어느 PC/경로에서도 로드됨
     OUT_XML.write_text(arm.to_xml(), encoding="utf-8")
-    _write_scene(hand_qpos0, abs_assets)
+    _write_scene(hand_qpos0, "assets")
     print("saved:", OUT_XML.name, "+ so101_amazinghand_scene.xml")
     return model
 
