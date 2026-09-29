@@ -18,6 +18,8 @@ MuJoCo 파지 시뮬레이션과 관련 CAD 파일 모음.
 | `so_arm101.urdf`, `model.xml` | 팔 URDF / MJCF |
 | `*.STL`, `*.step`, `*.SLDASM` | 카메라 마운트, 손목 인터페이스, 오른손 CAD |
 
+> 팀원용 단계별 가이드(Claude에게 할 말 포함): [GUIDE.md](GUIDE.md)
+
 ## 설치
 
 Python 3.11 이상 권장 (개발은 Windows / Python 3.14).
