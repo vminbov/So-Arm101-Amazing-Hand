@@ -42,14 +42,22 @@ python -m sim.robots.build_combined                     # 결합 모델 재생�
 
 MJCF의 메시 경로는 상대 경로라 어느 위치에 clone해도 바로 로드됩니다.
 
-## 현재 상태 (2026-09-29)
+## 현재 상태 (2026-09-30)
 
-- 파지 방식: 사람처럼 손바닥을 캔 옆면에 대고 손가락으로 감싸는 **옆면 파지**, 엄지가 위쪽.
-- 스크립트 전문가로 `hand` 로봇 **60/60 성공** (고정 외부 카메라 기준 캔 배치 아크 r 0.37–0.43 m, ±20–40°).
-- 관절 목표 `[q_arm(5), grip]` 형태의 액션과 `obs_state`(6D)를 저장 → LeRobot SO-101 액션 공간과 호환.
-- 아직 안 한 것: 학습(ACT), LeRobotDataset 변환(WSL2/Ubuntu 필요), 실물 카메라와의 화각·왜곡 정합.
+- 파지: 손바닥을 캔 옆면에 대는 **옆면 파지**(psi=90°), 스크립트 전문가로 데이터 생성.
+- 씬은 실제 카메라·책상·캔(133mm, 12g) 기준으로 맞춰져 있음.
+- 학습 파이프라인: `record_dataset` → `to_lerobot` → `train`(ACT) → `eval_policy`.
+  시뮬 데이터만으로 학습한 ACT가 90지점 평가에서 약 64–77% (세부 결과: `media/eval90_v0_v1_v2.png`, `media/eval_act_sim_v*.mp4`).
+- 다음 단계: 팀원 teleop 코드 연동, 실물 데이터와 섞은 비율 비교(A안).
 
-> `sim/README.md`의 일부 수치(성공률 등)는 초기 개발 시점 기준이라 위 내용이 더 최신입니다.
+### 학습 환경 (선택)
+학습/평가는 시뮬 `.venv`와 별도로 `.venv-train`에서 실행합니다.
+```bash
+python -m venv .venv-train
+.venv-train/Scripts/pip install -r sim/requirements-train.txt   # torch(CUDA)는 먼저 설치
+.venv-train/Scripts/python.exe -m sim.scripts.to_lerobot --name sim_hand_v0
+```
+`data/`, `outputs/`(체크포인트, 수 GB)는 저장소에 포함하지 않습니다. 각 스크립트 docstring 참고.
 
 ## 크레딧
 

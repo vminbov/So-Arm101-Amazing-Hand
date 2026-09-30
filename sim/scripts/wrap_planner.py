@@ -27,9 +27,11 @@ GRASP_THETA = np.radians(0.0)
 GRASP_PSI = np.radians(90.0)
 RETREAT = 0.06        # 대기지점: 잡는 자세에서 손바닥 반대 방향으로 물러나는 거리
 PULLBACK = 0.045      # 대기지점: 손가락 축(-Z)으로도 물러남 — 캔이 엄지(tip_col_4)와 새끼 끝(tip_col_3) 사이 틈으로 들어오게(4:3 비율이 최대 여유)
-HOVER_DZ = 0.10       # 대기지점 위 안전 높이
+HOVER_DZ = 0.12       # 대기지점 위 안전 높이 (캔 실측 133mm로 높아져서 0.10이면 오른쪽 먼 쪽에서 손이 캔 윗면을 스침)
 LIFT_DZ = 0.12
 STEP_POS = 0.005      # 카테시안 경유점 간격
+SLIDE_STEP = 0.00125  # 옆 진입 구간만의 경유점 간격(=속도). 엄지와 캔 여유가 0.5mm뿐이라 팔 추종 오차(5mm 간격일 때
+                      # 관절 최대 3deg)가 곧 충돌 -> 빈 캔(12g)이 9~15mm 밀림. 1.25mm로 늦추면 2~3mm (slide_stop_test.py)
 STEP_ROT = np.radians(3.0)
 PEN_TOL = -0.001      # 이보다 깊게 파고들면 충돌로 판정
 
@@ -182,7 +184,7 @@ def plan(env, cube_pos: np.ndarray):
         return _rot_about_pan(tcp_g - PULLBACK * s * R[:, 2], qg, alpha * s)
     tcp_pre, q_pre = pre(1.0)
     tcp_hover = tcp_pre + np.array([0.0, 0.0, HOVER_DZ])
-    n_slide = max(1, int(np.ceil(np.hypot(RETREAT, PULLBACK) / STEP_POS)))
+    n_slide = max(1, int(np.ceil(np.hypot(RETREAT, PULLBACK) / SLIDE_STEP)))
     slide = [pre(1 - k / n_slide) for k in range(1, n_slide + 1)]
 
     # 대기지점 위까지는 관절공간 직선 보간: 카테시안 slerp 중간 자세는 5축 팔이 못 내는 방향이라

@@ -268,13 +268,13 @@ SCENE_XML = """<?xml version="1.0" ?>
       <geom name="table_top" type="box" size="0.266 0.750 0.02" material="table_mat" friction="1 0.01 0.001"/>
     </body>
     <!-- [2026-09-15] 큐브 -> 나랑드사이다 245ml(슬림캔) 원통으로 교체. 사용자 확인:
-         슬림캔 규격(지름 약 53mm, 높이 약 115mm) — 정확한 실측치는 아니고 추정값.
-         mass=0.25kg(내용물 포함 풀캔 가정), 원통 관성 직접 계산(축=로컬 Z).
+         [실측 2026-09-30] 지름 약 53mm, 높이 약 133mm(예전 추정 115mm). 빈 캔(사용자 확인) -> 알루미늄 약 12g, 관성은 얇은 원통 껍질+양 끝 원판으로 계산.
+         질량·관성은 위 [실측] 줄 참고(축=로컬 Z).
          geom/body 이름은 하위호환 위해 "cube"/"cube_geom" 그대로 유지(코드에서 참조 다수). -->
-    <body name="cube" pos="0.22 0.00 0.0575">
+    <body name="cube" pos="0.22 0.00 0.0665">
       <freejoint name="cube_free"/>
-      <inertial pos="0 0 0" mass="0.25" diaginertia="3.19e-4 3.19e-4 8.78e-5"/>
-      <geom name="cube_geom" type="cylinder" size="0.0265 0.0575" material="can_mat"
+      <inertial pos="0 0 0" mass="0.012" diaginertia="2.74e-05 2.74e-05 7.73e-06"/>
+      <geom name="cube_geom" type="cylinder" size="0.0265 0.0665" material="can_mat"
             friction="1.0 0.03 0.002" solref="0.008 1" solimp="0.97 0.995 0.001" condim="4" priority="2"/>
     </body>
     <camera name="front" pos="0.60 0.00 0.30" mode="targetbody" target="cube" fovy="50"/>
@@ -310,7 +310,7 @@ SCENE_XML = """<?xml version="1.0" ?>
          더 뒤로 꺾여야" 라고 지시 → 두 관절 다 range 한계까지 밀어붙여서 확정
          (shoulder_lift=-100deg, wrist_flex=-95deg, 둘 다 정확히 관절 한계값). -->
     <key name="home"
-         qpos="0.02618 -1.74533 1.56380 -1.65806 -0.112 {hand_qpos0} 0.22 0 0.0575 1 0 0 0"
+         qpos="0.02618 -1.74533 1.56380 -1.65806 -0.112 {hand_qpos0} 0.22 0 0.0665 1 0 0 0"
          ctrl="0.02618 -1.74533 1.56380 -1.65806 -0.112 0 0 0 0 0 0 0 0"/>
   </keyframe>
 </mujoco>

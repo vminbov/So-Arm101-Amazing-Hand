@@ -32,7 +32,7 @@ from pathlib import Path
 
 import numpy as np
 
-from sim.tasks.grasp_env import SO101GraspEnv
+from sim.tasks.grasp_env import HAND_CAN_ARC_DEG, HAND_CAN_ARC_R, PAN_AXIS_XY, SO101GraspEnv
 from sim.scripts.scripted_grasp import ScriptedGraspPolicy, policy_step
 
 _ROOT = Path(__file__).resolve().parents[2]
@@ -41,9 +41,24 @@ _ROOT = Path(__file__).resolve().parents[2]
 OBS_STATE_IDX = [0, 1, 2, 3, 4, 10]
 
 
+def balanced_can_positions(n: int, seed: int) -> list[tuple[float, float]]:
+    """hand 캔 위치를 부채꼴 전체에 골고루: 구간(좌/우)을 번갈아 같은 개수로, 구간 안에서는
+    각도·반경을 라틴 하이퍼큐브로 층화. 순수 무작위 50개는 우19/좌31로 치우치고 오른쪽 -20·-40deg
+    근처가 비어서 거기서 ACT가 실패했다(act_sim_v0 격자평가 우 6/15, 좌 13/15)."""
+    rng = np.random.default_rng(seed)
+    k = len(HAND_CAN_ARC_DEG)
+    per = [len(range(i, n, k)) for i in range(k)]
+    cells = []
+    for (lo, hi), m in zip(HAND_CAN_ARC_DEG, per):
+        a = lo + (rng.permutation(m) + rng.random(m)) / m * (hi - lo)
+        r = HAND_CAN_ARC_R[0] + (rng.permutation(m) + rng.random(m)) / m * (HAND_CAN_ARC_R[1] - HAND_CAN_ARC_R[0])
+        cells.append(PAN_AXIS_XY + r[:, None] * np.stack([np.cos(np.radians(a)), np.sin(np.radians(a))], 1))
+    return [tuple(map(float, cells[i % k][i // k])) for i in range(n)]
+
+
 def record(name: str, episodes: int, images: bool, seed: int, robot: str = "jaw",
            cameras=None, image_size=(240, 320), fps=25,
-           only_success: bool = False):
+           only_success: bool = False, balanced: bool = True):
     if cameras is None:   # hand: 실물과 같은 외부 고정 카메라 1대뿐
         cameras = ("ext_cam",) if robot == "hand" else ("front", "top")
     out = _ROOT / "data" / name
@@ -54,10 +69,12 @@ def record(name: str, episodes: int, images: bool, seed: int, robot: str = "jaw"
                         max_steps=max_steps, reward_type="dense")
     pol = ScriptedGraspPolicy(robot=robot)
 
+    positions = balanced_can_positions(episodes, seed) if (robot == "hand" and balanced) else None
     saved, succ, t0 = 0, 0, time.time()
     ep_index = 0
     for ep in range(episodes):
-        obs, info = env.reset(seed=seed + ep)
+        obs, info = env.reset(seed=seed + ep,
+                              options={"cube_pos": positions[ep]} if positions else None)
         pol.reset()
         S, A, R, D = [], [], [], []
         IMG = {c: [] for c in cameras} if images else None
@@ -113,6 +130,7 @@ def record(name: str, episodes: int, images: bool, seed: int, robot: str = "jaw"
         "cameras": list(cameras) if images else [],
         "image_size": list(image_size) if images else None,
         "source": "scripted_grasp.ScriptedGraspPolicy on SO101GraspEnv",
+        "can_placement": "balanced (좌우 교대 + 각도·반경 층화)" if positions else "uniform random",
     }
     (out / "meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\n저장 완료: {out}  ({saved} 에피소드, 성공률 {meta['success_rate']:.0%}, "
@@ -128,9 +146,10 @@ def main():
     ap.add_argument("--robot", choices=["jaw", "hand"], default="jaw")
     ap.add_argument("--images", action="store_true", help="카메라 RGB도 저장 (용량 큼)")
     ap.add_argument("--only-success", action="store_true", help="성공 에피소드만 저장")
+    ap.add_argument("--random-placement", action="store_true", help="hand: 층화 대신 순수 무작위 캔 배치(v0 방식)")
     args = ap.parse_args()
     record(args.name, args.episodes, args.images, args.seed, robot=args.robot,
-           only_success=args.only_success)
+           only_success=args.only_success, balanced=not args.random_placement)
 
 
 if __name__ == "__main__":

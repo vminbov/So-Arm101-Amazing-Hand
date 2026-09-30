@@ -1,5 +1,5 @@
 <mujoco model="so101_new_calib">
-  <compiler angle="radian" meshdir="assets"/>
+  <compiler angle="radian" meshdir="assets/"/>
 
   <default>
     <default class="so101_new_calib">
@@ -111,20 +111,20 @@
     <material name="ah_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" rgba="0.603922 0.647059 0.686275 1"/>
     <material name="ah_proximal_shell_material"/>
     <material name="ah_proximal_material" rgba="0.8 0.8 0.8 1"/>
-    <mesh name="waveshare_mounting_plate_so101_v2" file="waveshare_mounting_plate_so101_v2.stl"/>
-    <mesh name="sts3215_03a_v1" file="sts3215_03a_v1.stl"/>
-    <mesh name="motor_holder_so101_base_v1" file="motor_holder_so101_base_v1.stl"/>
-    <mesh name="wrist_roll_follower_so101_v1" file="wrist_roll_follower_so101_v1.stl"/>
-    <mesh name="moving_jaw_so101_v1" file="moving_jaw_so101_v1.stl"/>
-    <mesh name="base_motor_holder_so101_v1" file="base_motor_holder_so101_v1.stl"/>
-    <mesh name="upper_arm_so101_v1" file="upper_arm_so101_v1.stl"/>
-    <mesh name="wrist_roll_pitch_so101_v2" file="wrist_roll_pitch_so101_v2.stl"/>
-    <mesh name="under_arm_so101_v1" file="under_arm_so101_v1.stl"/>
-    <mesh name="rotation_pitch_so101_v1" file="rotation_pitch_so101_v1.stl"/>
-    <mesh name="motor_holder_so101_wrist_v1" file="motor_holder_so101_wrist_v1.stl"/>
-    <mesh name="sts3215_03a_no_horn_v1" file="sts3215_03a_no_horn_v1.stl"/>
-    <mesh name="base_so101_v2" file="base_so101_v2.stl"/>
-    <mesh name="soarm_interface" file="SO-ARM_Interface.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="waveshare_mounting_plate_so101_v2" content_type="model/stl" file="waveshare_mounting_plate_so101_v2.stl"/>
+    <mesh name="sts3215_03a_v1" content_type="model/stl" file="sts3215_03a_v1.stl"/>
+    <mesh name="motor_holder_so101_base_v1" content_type="model/stl" file="motor_holder_so101_base_v1.stl"/>
+    <mesh name="wrist_roll_follower_so101_v1" content_type="model/stl" file="wrist_roll_follower_so101_v1.stl"/>
+    <mesh name="moving_jaw_so101_v1" content_type="model/stl" file="moving_jaw_so101_v1.stl"/>
+    <mesh name="base_motor_holder_so101_v1" content_type="model/stl" file="base_motor_holder_so101_v1.stl"/>
+    <mesh name="upper_arm_so101_v1" content_type="model/stl" file="upper_arm_so101_v1.stl"/>
+    <mesh name="wrist_roll_pitch_so101_v2" content_type="model/stl" file="wrist_roll_pitch_so101_v2.stl"/>
+    <mesh name="under_arm_so101_v1" content_type="model/stl" file="under_arm_so101_v1.stl"/>
+    <mesh name="rotation_pitch_so101_v1" content_type="model/stl" file="rotation_pitch_so101_v1.stl"/>
+    <mesh name="motor_holder_so101_wrist_v1" content_type="model/stl" file="motor_holder_so101_wrist_v1.stl"/>
+    <mesh name="sts3215_03a_no_horn_v1" content_type="model/stl" file="sts3215_03a_no_horn_v1.stl"/>
+    <mesh name="base_so101_v2" content_type="model/stl" file="base_so101_v2.stl"/>
+    <mesh name="soarm_interface" content_type="model/stl" file="SO-ARM_Interface.stl" scale="0.001 0.001 0.001"/>
     <mesh name="ah_proximal_shell" file="proximal_shell.stl"/>
     <mesh name="ah_link" file="link.stl"/>
     <mesh name="ah_spacer" file="spacer.stl"/>

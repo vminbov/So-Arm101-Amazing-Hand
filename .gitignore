@@ -7,3 +7,6 @@ scratch_export/
 backups/
 .env*
 *.lock
+.venv-train/
+outputs/
+data/

@@ -1,0 +1,5 @@
+# ACT 학습/평가용 별도 환경 (.venv-train). 시뮬 환경(.venv)과 분리.
+# CUDA 빌드 torch는 GPU에 맞게 먼저 설치 (RTX 50 시리즈는 cu128).
+lerobot==0.6.1
+mujoco==3.13.0
+gymnasium==1.3.0
